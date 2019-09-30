@@ -4,9 +4,13 @@
 
 En esta tarea, nos familiarizaremos con el API descrito en el capítulo del libro. Para hacer esto, usted solo debe escribir unos cuantos programas, la mayoria basada en varias utilidades UNIX.
 
-## Questions ##
+## Preguntas ##
 
 1. **Stat**: Escriba su propia versión del comando ```stat```, la cual simplemente invoca la llamada del sistema ```stat()``` en un archivo o directorio. Imprima el tamaño del archivo, el número de bloques asignado, reference (link) count, etc. ¿Qué es el link count de un directorio, ¿cómo el numero de entradas en el directorio cambia? Interfaces Útiles: ```stat()```, naturalmente.
+
+    > Un ```hard link``` es una nueva forma de hacer una entrada en el árbol del sistema de archivos, a través de una llamada al sistema conocida como ***link()***. La llamada al sistema link() toma dos argumentos, el antiguo nombre de ruta y uno nuevo; cuando "vincula" un nuevo nombre de archivo a uno antiguo, esencialmente crea otra forma de referirse al mismo archivo, es decir, crea otro nombre para el archivo y lo remite al mismo número de inodo del archivo original; el archivo no se copia, más bien, ahora tiene dos nombres que ambos se refieren al mismo archivo. El comando ```ln``` se usa para hacer esto, es decir, crear el ```hard link```. Ahora, el ***link count*** de un directorio (llamado también recuento de referencias), es el número de links o enlaces, permite que el sistema de archivos rastree cuántos nombres de archivos diferentes se han vinculado a un inodo particular. El ```link count``` de un archivo se puede ver usando la llamada al sistema ***stat()***.
+
+    > Un directorio tiene un ```link count``` que comienza en 2, uno es el normal que proviene de la entrada en el directorio principal, mientras que el segundo proviene del "." entrada (el directorio se vincula a sí mismo). Cada subdirectorio agregado aumenta el ```link count``` en uno, debido a la entrada en cada subdirectorio.
 
 2. **List Files**: Escriba un programa que liste los archivos en un directorio dado. Cuando sea llamado sin argumentos, el programa deberá solo imprimir los nombres del archivo. Cuando se invoque con la flag ```-l```, el programa deberá imprimir la información de cada archivo tal como, owner, group, permissions y otra información obtenida de la llamada de sistema ```stat()```. El programa deberá tomar un argumento adicional el cual es el directorio a leer, por ejemplo, ```myls -l directory```.  Si ningún directorio es dado, el programa solo deberá usar el directorio de trabajo actual. Interfaces Útiles: ```stat()```, ```opendir()```, ```readdir()```, ```getcwd()```.
 
