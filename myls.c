@@ -10,7 +10,6 @@
 
 #define PATH_MAX 4096
 char *getUserName();
-void getPermissions(struct stat myStat);
 
 int main(int argc, char *argv[])
 {
@@ -39,13 +38,35 @@ int main(int argc, char *argv[])
     }
 
     myDir = opendir(cwd);
-    while ((myFile = readdir(myDir)) != NULL)
+    if (myDir == NULL)
     {
-        sprintf(myFilePath, "%s/%s", cwd, myFile->d_name);
-        stat(myFilePath, &myStat);
-        getPermissions(myStat);
-        printf("%ld\t %s\t %s\t %s\n", (long)myStat.st_size, getUserName(myStat.st_uid), getUserName(myStat.st_gid), myFile->d_name);
+        printf("No fue posible abrir el directorio '%s'\n", cwd);
+        return 1;
     }
+
+    if (strcmp(prop, "-l") == 0)
+    {
+        while ((myFile = readdir(myDir)) != NULL)
+        {
+            sprintf(myFilePath, "%s/%s", cwd, myFile->d_name);
+            stat(myFilePath, &myStat);
+            char file[PATH_MAX];
+
+            sprintf(file, "./myStat.out %s --permissions", myFilePath);
+            system(&file);
+            printf("\t");
+            printf("%ld\t %s\t %s\t %s\n", (long)myStat.st_size, getUserName(myStat.st_uid), getUserName(myStat.st_gid), myFile->d_name);
+        }
+    }
+    else
+    {
+        while ((myFile = readdir(myDir)) != NULL)
+        {
+            printf("%s\t", myFile->d_name);
+        }
+        printf("\n");
+    }
+
     closedir(myDir);
 
     return 0;
@@ -59,19 +80,4 @@ char *getUserName(uid_t uid)
         return pw->pw_name;
     }
     return "unnamed";
-}
-
-void getPermissions(struct stat myStat)
-{
-    printf((S_ISDIR(myStat.st_mode)) ? "d" : "-");
-    printf((myStat.st_mode & S_IRUSR) ? "r" : "-");
-    printf((myStat.st_mode & S_IWUSR) ? "w" : "-");
-    printf((myStat.st_mode & S_IXUSR) ? "x" : "-");
-    printf((myStat.st_mode & S_IRGRP) ? "r" : "-");
-    printf((myStat.st_mode & S_IWGRP) ? "w" : "-");
-    printf((myStat.st_mode & S_IXGRP) ? "x" : "-");
-    printf((myStat.st_mode & S_IROTH) ? "r" : "-");
-    printf((myStat.st_mode & S_IWOTH) ? "w" : "-");
-    printf((myStat.st_mode & S_IXOTH) ? "x" : "-");
-    printf("\t");
 }
