@@ -1,9 +1,11 @@
 #include <unistd.h>
+#include <time.h>
 #include <stdio.h>
 #include <string.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 
+char *convertTime(time_t time);
 void getPermissions(struct stat myStat);
 
 int main(int argc, char **argv)
@@ -24,19 +26,28 @@ int main(int argc, char **argv)
     if (stat(argv[1], &fileStat) < 0)
         return 1;
 
-    printf("Información de %s\n", argv[1]);
+    printf("Information for: %s\n", argv[1]);
     printf("---------------------------\n");
-    printf("File Size: \t\t%ld bytes\n", (long)fileStat.st_size);
-    printf("Number of Links: \t%ld\n", (long)fileStat.st_nlink);
-    printf("File inode: \t\t%ld\n", (long)fileStat.st_ino);
-    printf("File Permissions: \t");
+    printf("File Size: \t\t\t\t%ld bytes\n", (long)fileStat.st_size);
+    printf("Number of Links: \t\t\t%ld\n", (long)fileStat.st_nlink);
+    printf("File inode: \t\t\t\t%ld\n", (long)fileStat.st_ino);
+    printf("Number of 512B blocks allocated: \t%ld\n", (long)fileStat.st_blocks);
+    printf("Blocksize for file system I/O: \t\t%ld\n", (long)fileStat.st_blksize);
+    printf("File Permissions: \t\t\t");
     getPermissions(fileStat);
     printf("\n\n");
-    printf("Last access: \t%ld\n", (long)fileStat.st_atime);
-    printf("Last modification: \t%ld\n", (long)fileStat.st_ctime);
+    printf("Last access: \t\t\t\t%s", convertTime(fileStat.st_atime));
+    printf("Last modification: \t\t\t%s", convertTime(fileStat.st_atime));
     printf("The file %s a symbolic link\n", (S_ISLNK(fileStat.st_mode)) ? "is" : "is not");
 
     return 0;
+}
+
+char *convertTime(time_t time)
+{
+    char *c_time_string;
+    c_time_string = ctime(&time);
+    return c_time_string;
 }
 
 void getPermissions(struct stat myStat)
