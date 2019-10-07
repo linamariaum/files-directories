@@ -14,6 +14,10 @@ En esta tarea, nos familiarizaremos con el API descrito en el capítulo del libr
 
 2. **List Files**: Escriba un programa que liste los archivos en un directorio dado. Cuando sea llamado sin argumentos, el programa deberá solo imprimir los nombres del archivo. Cuando se invoque con la flag ```-l```, el programa deberá imprimir la información de cada archivo tal como, owner, group, permissions y otra información obtenida de la llamada de sistema ```stat()```. El programa deberá tomar un argumento adicional el cual es el directorio a leer, por ejemplo, ```myls -l directory```.  Si ningún directorio es dado, el programa solo deberá usar el directorio de trabajo actual. Interfaces Útiles: ```stat()```, ```opendir()```, ```readdir()```, ```getcwd()```.
 
+    > El programa **List Files** se encuentra en este repositorio como: ```myls.c```. Importante, antes de ejecutar este programa, es necesario compilarlo, igualmente compilar el programa ```myStat.c``` para el correcto funcionamiento de **List Files**.
+
+    > Para compilar: ```gcc myls.c -o myls.out -Wall```
+
 3. **Recursive Search**: Escriba un programa que imprima los nombres de cada archivo y directorio del arbol del sistema de archivos (file system tree), empezando en un punto dado del sistema de archivos en el arbol. Por ejemplo, cuando ejecute sin argumentos, el programa deberá empezar con el directorio de trabajo actual e imprimir su contenido, asi como con los contenidos de cualquier subdirectorio en este, etc., hasta que el arbol entero, root en el CWD sea impreso. Si se da un unico argumento (de un nombre de un directorio), use este como root en vez de el del sistema. Refine su busqueda recursiva con mas opciones de busqueda divertidas, similar a la poderosa herramienta por linea de comandos ```find```.
 
 
