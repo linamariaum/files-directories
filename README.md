@@ -12,6 +12,10 @@ En esta tarea, nos familiarizaremos con el API descrito en el capítulo del libr
 
     > Un directorio tiene un ```link count``` que comienza en 2, uno es el normal que proviene de la entrada en el directorio principal, mientras que el segundo proviene del "." entrada (el directorio se vincula a sí mismo). Cada subdirectorio agregado aumenta el ```link count``` en uno, debido a la entrada en cada subdirectorio.
 
+    > El programa **Stat** se encuentra en este repositorio como: ```myStat.c```. Importante, antes de ejecutar este programa, es necesario compilarlo.
+
+    > Para compilar: ```gcc myStat.c -o myStat.out -Wall```
+
 2. **List Files**: Escriba un programa que liste los archivos en un directorio dado. Cuando sea llamado sin argumentos, el programa deberá solo imprimir los nombres del archivo. Cuando se invoque con la flag ```-l```, el programa deberá imprimir la información de cada archivo tal como, owner, group, permissions y otra información obtenida de la llamada de sistema ```stat()```. El programa deberá tomar un argumento adicional el cual es el directorio a leer, por ejemplo, ```myls -l directory```.  Si ningún directorio es dado, el programa solo deberá usar el directorio de trabajo actual. Interfaces Útiles: ```stat()```, ```opendir()```, ```readdir()```, ```getcwd()```.
 
     > El programa **List Files** se encuentra en este repositorio como: ```myls.c```. Importante, antes de ejecutar este programa, es necesario compilarlo, igualmente compilar el programa ```myStat.c``` para el correcto funcionamiento de **List Files**.
