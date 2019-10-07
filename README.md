@@ -24,6 +24,10 @@ En esta tarea, nos familiarizaremos con el API descrito en el capítulo del libr
 
 3. **Recursive Search**: Escriba un programa que imprima los nombres de cada archivo y directorio del arbol del sistema de archivos (file system tree), empezando en un punto dado del sistema de archivos en el arbol. Por ejemplo, cuando ejecute sin argumentos, el programa deberá empezar con el directorio de trabajo actual e imprimir su contenido, asi como con los contenidos de cualquier subdirectorio en este, etc., hasta que el arbol entero, root en el CWD sea impreso. Si se da un unico argumento (de un nombre de un directorio), use este como root en vez de el del sistema. Refine su busqueda recursiva con mas opciones de busqueda divertidas, similar a la poderosa herramienta por linea de comandos ```find```.
 
+    > El programa **Recursive Search** se encuentra en este repositorio como: ```myls.c```. Importante, antes de ejecutar este programa, es necesario compilarlo..
+
+    > Para compilar: ```gcc mySearch.c -o mySearch.out -Wall```
+
 
 ## Referencias de utilidad ##
 
